@@ -51,6 +51,7 @@ public class FormSampleServlet extends HttpServlet {
 		out.println("</head>");
 		out.println("<body>");
 		out.println("名前：" + name);
+		out.println("<br>");
 		out.println("性別：" + gender);
 		out.println("</body>");
 		out.println("</html>");
