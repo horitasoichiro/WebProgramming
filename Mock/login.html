@@ -7,33 +7,43 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <style>
+    h3{
+      text-align:center;
+    }
+    .loginBtn{
+      text-align: center;
+    }
+
+    </style>
 
 
-
-    <title>login</title>
+    <title>ログイン</title>
 
   </head>
   <body>
 
 <div class="container">
     <br>
-  <div class="row justify-content-md-center">
+<form action="#" method"post">
   
-  <h3 class="form-signin-heading">ログイン画面</h3>
+  <h3>ログイン画面</h3>
 
-</div>
+
 
 
 
       <br>
-          <input class="col-md-6 offset-md-3" type="text" placeholder="ID">
+
+          <input class="col-md-6 offset-md-3" type="text" id="ID"placeholder="ID">
         <br>  <br>
-          <input class="col-md-6 offset-md-3" type="password" placeholder="PASSWORD">
+          <input class="col-md-6 offset-md-3" type="password" id="password"placeholder="PASSWORD">
           <br><br>
-          <div class="row justify-content-md-center">
-            <input class="btn btn-primary" type="submit" value="ログイン">
+          <div class=loginBtn>
+            <input class="btn btn-primary" type="button" value="ログイン"onClick="location.href='file:///Users/likeit_student/Documents/git/WebProgramming/Mock/userList.html'">
           </div>
   </div>
+</form>
 
 </body>
 </html>
