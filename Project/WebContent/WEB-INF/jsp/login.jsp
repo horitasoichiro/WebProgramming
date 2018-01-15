@@ -43,7 +43,7 @@
 
 <div class="container">
     <br>
-<form action="#" method"post">
+<form action="LoginServlet" method="post">
   
   <h3>ログイン画面</h3>
 
@@ -55,14 +55,14 @@
 
           <div class="row">
             <div class="col align-self-center">
-          <input type="ログインID" class="form-control" id="inputID" placeholder="ログインID">
+          <input type="text" class="form-control" id="inputID" placeholder="ログインID" name="loginID">
         <br>
-          <input type="パスワード" class="form-control" id="inputPassword" placeholder="パスワード">
+          <input type="password" class="form-control" id="inputPassword" placeholder="パスワード" name="password">
           <br>
         </div>
       </div>
           <div class=loginBtn>
-            <input class="btn btn-primary" type="button" value="ログイン"onClick="location.href='file:///Users/likeit_student/Documents/git/WebProgramming/Mock/userList.html'">
+            <input class="btn btn-primary" type="submit" value="ログイン">
           </div>
           </form>
           <br>

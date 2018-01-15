@@ -8,6 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import Dao.UserDao;
+import model.User;
 
 /**
  * Servlet implementation class LoginServlet
@@ -21,7 +25,6 @@ public class LoginServlet extends HttpServlet {
      */
     public LoginServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -36,8 +39,28 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		String loginID = request.getParameter("loginID");
+		String password = request.getParameter("password");
+
+		User user = UserDao.findById(loginID);
+
+		if(password == user.getPassword()){
+			User userN = new User(loginID,password);
+			HttpSession session = request.getSession();
+			session.setAttribute("user", userN);
+
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
+	        dispatcher.forward(request, response);
+
+		}else {
+
+		}
+
+
+
+
+
 	}
 
 }
