@@ -43,23 +43,25 @@ public class LoginServlet extends HttpServlet {
 		String loginID = request.getParameter("loginID");
 		String password = request.getParameter("password");
 
-		User user = UserDao.findById(loginID);
+		User u = new User();
+		UserDao userDao = new UserDao();
+		u = userDao.findById(loginID,password);
 
-		if(password == user.getPassword()){
-			User userN = new User(loginID,password);
+
+
+		if(u != null) {
 			HttpSession session = request.getSession();
-			session.setAttribute("user", userN);
+			session.setAttribute("User", u);
 
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
-	        dispatcher.forward(request, response);
-
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
+			dispatcher.forward(request, response);
 		}else {
 
+			request.setAttribute("errorMessage",
+                    "※ユーザ名またはパスワードが違います");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
+			dispatcher.forward(request, response);
 		}
-
-
-
-
 
 	}
 

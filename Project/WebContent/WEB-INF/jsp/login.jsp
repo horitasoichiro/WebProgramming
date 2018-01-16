@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+
 <!doctype html>
 <html lang="ja">
+
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -21,6 +23,10 @@
     }
     .loginBtn{
       text-align: center;
+    }
+    p{
+    text-align: center;
+    font-size : small;
     }
     body{
       font-family: "ヒラギノ丸ゴ ProN","Hiragino Maru Gothic ProN"
@@ -46,12 +52,16 @@
 <form action="LoginServlet" method="post">
   
   <h3>ログイン画面</h3>
+<br>
+    <p style="color: red">
+        ${errorMessage}
+    </p>
 
 
 
 
 
-      <br>
+
 
           <div class="row">
             <div class="col align-self-center">

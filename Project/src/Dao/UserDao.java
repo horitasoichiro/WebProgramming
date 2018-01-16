@@ -8,44 +8,79 @@ import java.sql.SQLException;
 import model.User;
 
 public class UserDao {
-    public User findById(String targetId) {
-        Connection conn = null;
-        try {
-            // データベースへ接続
-            conn = DBManager.getConnection();
-            // SELECT文を準備
-            String sql = "SELECT login_id, name, password, FROM user WHERE loginID = ?";
-             // SELECTを実行し、結果表を取得
-            PreparedStatement pStmt = conn.prepareStatement(sql);
-            pStmt.setString(1, targetId);
-            ResultSet rs = pStmt.executeQuery();
-             // 主キーに紐づくレコードは1件のみなので、rs.next()は1回だけ行う
-            if (!rs.next()) {
-                return null;
-            }
-            String loginID = rs.getString("login_id");
-            String password = rs.getString("password");
-            String name = rs.getString("name");
+	public User findById(String loginID,String password) {
+		Connection conn = null;
+		try {
+			//DBへ接続
+			conn = DBManager.getConnection();
+//			//SELECT文を準備
+			String sql ="SELECT* FROM user where login_id =  ? and password = ?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, loginID);
+			pStmt.setString(2, password);
+			ResultSet rs = pStmt.executeQuery();
+           // 主キーに紐づくレコードは1件のみなので、rs.next()は1回だけ行う
+			if (!rs.next()) {
+				return null;
+			}
+			String rsLoginID = rs.getString("login_id");
+			String rsPassword = rs.getString("password");
+			String rsName = rs.getString("name");
+			User user = new User(rsLoginID, rsPassword,rsName);
 
-            return new User(loginID, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            // データベース切断
-            // 以下findAllと同じ処理なので略
-            // データベース切断
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    return null;
-                }
-            }
-        }
-
-    }
+			return  user;
+	}catch (SQLException e) {
+		return null;
+		}finally {
+			//DB切断
+			if(conn != null) {
+				try {
+					conn.close();
+				}catch (SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+		}
+	}
+		//public User findById(String targetId) {
+//        Connection conn = null;
+//        try {
+//            // データベースへ接続
+//            conn = DBManager.getConnection();
+//            // SELECT文を準備
+//            String sql = "SELECT login_id, name, password, FROM user WHERE loginID = ?";
+//             // SELECTを実行し、結果表を取得
+//            PreparedStatement pStmt = conn.prepareStatement(sql);
+//            pStmt.setString(1, targetId);
+//            ResultSet rs = pStmt.executeQuery();
+//             // 主キーに紐づくレコードは1件のみなので、rs.next()は1回だけ行う
+//            if (!rs.next()) {
+//                return null;
+//            }
+//            String loginID = rs.getString("login_id");
+//            String password = rs.getString("password");
+//            String name = rs.getString("name");
+//
+//            return new User(loginID, password);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            return null;
+//        } finally {
+//            // データベース切断
+//            // 以下findAllと同じ処理なので略
+//            // データベース切断
+//            if (conn != null) {
+//                try {
+//                    conn.close();
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                    return null;
+//                }
+//            }
+//        }
+//
+//    }
 
 
 

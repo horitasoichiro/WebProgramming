@@ -46,12 +46,13 @@
 
 
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand">ユーザ名　さん</a>
+      <a class="navbar-brand">${sessionScope.user.name} さん</a>
 
       <div class="logoutBtn">
-        <input class="btn btn-outline-success my-2 my-sm-0"　type="button" value="ログアウト" onClick="location.href='file:///Users/likeit_student/Documents/git/WebProgramming/Mock/login.html'">
+        <input class="btn btn-outline-success my-2 my-sm-0" type="button" value="ログアウト" onClick="location.href='file:///Users/likeit_student/Documents/git/WebProgramming/Mock/login.html'">
       </div>
     </nav>
+
 
 
 <br>
@@ -62,17 +63,17 @@
     </div>
 <form action="#" method="post">
     <div class="container">
-      <form>
+
         <div class="form-group row">
           <label for="inputLoginID" class="col-sm-2 col-form-label">ログインID</label>
           <div class="col-sm-10">
-            <input type="ログインID" class="form-control" id="inputID" placeholder="ログインID">
+            <input type="text" class="form-control" id="inputID" placeholder="ログインID">
           </div>
         </div>
         <div class="form-group row">
           <label for="inputPassword3" class="col-sm-2 col-form-label">パスワード</label>
           <div class="col-sm-10">
-            <input type="パスワード" class="form-control" id="inputPassword" placeholder="パスワード">
+            <input type="password" class="form-control" id="inputPassword" placeholder="パスワード">
           </div>
         </div>
         <div class="form-group row">
@@ -93,7 +94,7 @@
           <div class="col-auto mr-auto"></div>
           <div class="col-auto"><button type="button" class="btn btn-primary">検索</button></div>
         </div>
-    <form>
+    </form>
       <hr>
 
     <table class="table table-bordered">
