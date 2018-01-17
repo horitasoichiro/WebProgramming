@@ -15,3 +15,7 @@ CREATE TABLE user(
 INSERT INTO user VALUES (
   1,'admin','管理者','1985/11/06/','password',now(),now()
 );
+
+INSERT INTO user VALUES (
+  id0001,'taro','田中太郎','1985/11/06/','password',now(),now()
+);

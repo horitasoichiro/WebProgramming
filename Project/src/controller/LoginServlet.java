@@ -43,17 +43,17 @@ public class LoginServlet extends HttpServlet {
 		String loginID = request.getParameter("loginID");
 		String password = request.getParameter("password");
 
-		User u = new User();
+		User user = new User();
 		UserDao userDao = new UserDao();
-		u = userDao.findById(loginID,password);
+		user = userDao.findById(loginID,password);
 
 
 
-		if(u != null) {
+		if(user != null) {
 			HttpSession session = request.getSession();
-			session.setAttribute("User", u);
+			session.setAttribute("User", user);
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("./UserListServlet");
 			dispatcher.forward(request, response);
 		}else {
 
