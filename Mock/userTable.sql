@@ -16,6 +16,9 @@ INSERT INTO user VALUES (
   1,'admin','管理者','1985/11/06/','password',now(),now()
 );
 
+-- test
 INSERT INTO user VALUES (
-  id0001,'taro','田中太郎','1985/11/06/','password',now(),now()
+  3,'sato','佐藤二朗','1900/03/24/','password',now(),now()
 );
+
+SELECT* FROM user where login_id = 'taro' OR password = null OR birth_date >= null OR birth_date <= null;
