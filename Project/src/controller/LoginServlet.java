@@ -53,8 +53,10 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("User", user);
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("./UserListServlet");
-			dispatcher.forward(request, response);
+			response.sendRedirect("./UserListServlet");
+
+//			RequestDispatcher dispatcher = request.getRequestDispatcher("./UserListServlet");
+//			dispatcher.forward(request, response);
 		}else {
 
 			request.setAttribute("errorMessage",

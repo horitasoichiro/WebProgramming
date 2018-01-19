@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!doctype html>
 <html lang="ja">
   <head>
@@ -37,10 +40,10 @@
     </head>
     <body>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand">ユーザ名　さん</a>
+      <a class="navbar-brand">${sessionScope.User.name}　さん</a>
 
       <div class="logoutBtn">
-        <input class="btn btn-outline-success my-2 my-sm-0"　type="button" value="ログアウト" onClick="location.href='file:///Users/likeit_student/Documents/git/WebProgramming/Mock/login.html'">
+        <input class="btn btn-outline-success my-2 my-sm-0" type="button" value="ログアウト" onClick="location.href='file:///Users/likeit_student/Documents/git/WebProgramming/Mock/login.html'">
       </div>
     </nav>
     <br>
@@ -57,23 +60,23 @@
         <tbody>
           <tr>
             <th scope="row">ログインID</th>
-            <td>id0001</td>
+            <td>${oneUser.loginID}</td>
           </tr>
           <tr>
             <th scope="row">ユーザ名</th>
-            <td>田中太郎</td>
+            <td>${oneUser.name}</td>
           </tr>
           <tr>
             <th scope="row">生年月日</th>
-            <td>1989年04月26日</td>
+            <td>${oneUser.birth_date}</td>
           </tr>
           <tr>
             <th scope="row">登録日時</th>
-            <td>2017年01月01日 10:50</td>
+            <td>${oneUser.create_date}</td>
           </tr>
           <tr>
             <th scope="row">更新日時</th>
-            <td>2017年02月01日 01:05</td>
+            <td>${oneUser.update_date}</td>
 
           </tr>
         </tbody>

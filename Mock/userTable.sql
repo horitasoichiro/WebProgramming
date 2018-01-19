@@ -17,8 +17,12 @@ INSERT INTO user VALUES (
 );
 
 -- test
-INSERT INTO user VALUES (
-  3,'sato','佐藤二朗','1900/03/24/','password',now(),now()
+INSERT INTO user (login_id ,name ,birth_date, password ,create_date, update_date)VALUES(
+  'satoo','佐藤花子','1990/10/05/','password',now(),now()
 );
 
-SELECT* FROM user where login_id = 'taro' OR password = null OR birth_date >= null OR birth_date <= null;
+SELECT* FROM user where login_id = 'taro' OR password = null OR birth_date >= '' OR birth_date <= null and id <> 1;
+
+SELECT* FROM user where login_id = 'taro' OR password = '' OR birth_date >= null OR birth_date <= null;
+
+SELECT* FROM user where login_id = 'taro' and password = null and birth_date >= '' and birth_date <= null and id <> 1;

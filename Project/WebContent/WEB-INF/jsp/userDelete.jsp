@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!doctype html>
 <html lang="ja">
   <head>
@@ -39,7 +42,7 @@
 
     <body>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand">ユーザ名　さん</a>
+      <a class="navbar-brand">${sessionScope.User.name}　さん</a>
 
       <div class="logoutBtn">
         <input class="btn btn-outline-success my-2 my-sm-0"　type="button" value="ログアウト" onClick="location.href='file:///Users/likeit_student/Documents/git/WebProgramming/Mock/login.html'">
