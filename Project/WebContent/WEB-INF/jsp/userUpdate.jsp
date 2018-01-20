@@ -110,7 +110,7 @@ body {
 
 			</table>
 			<input type=hidden name=truePassword value="${oneUser.password}">
-
+			<input type=hidden name=id value="${oneUser.id}">
 			<div class="updateBtn">
 				<button type="submit" class="btn btn-primary">更新</button>
 			</div>

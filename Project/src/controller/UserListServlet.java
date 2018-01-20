@@ -54,10 +54,10 @@ public class UserListServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String newUser = request.getParameter("newRegist");
-		if (newUser.equals("newUser")) {
-			response.sendRedirect("./UserInsertServlet");
-		} else {
+//		String newUser = request.getParameter("newRegist");
+//		if (newUser.equals("newUser")) {
+//			response.sendRedirect("./UserInsertServlet");
+//		} else {
 
 			request.setCharacterEncoding("UTF-8");
 			String loginId = request.getParameter("loginId");
@@ -108,7 +108,7 @@ public class UserListServlet extends HttpServlet {
 				response.sendRedirect(forwardPage);
 			}
 			// request.getRequestDispatcher(forwardPage).forward(request ,response);
-		}
+//		}
 		// String url = "WEB-INF/jsp/userList.jsp";
 		//
 		// response.sendRedirect(url);

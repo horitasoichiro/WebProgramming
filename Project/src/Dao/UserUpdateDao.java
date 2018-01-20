@@ -14,7 +14,7 @@ public class UserUpdateDao {
 			conn = DBManager.getConnection();
 
 //			//update文を準備
-			String sql = " UPDATE user SET password = ? , name = ? , birth_date = ? WHERE id = ? ";
+			String sql = " UPDATE user SET password = ? , name = ? , birth_date = ? , update_date = now() WHERE id = ? ";
 
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 

@@ -46,6 +46,8 @@ public class UserUpdateServlet extends HttpServlet {
 		String userName = request.getParameter("userName");
 		String userBirthday = request.getParameter("userBirthday");
 		String truePassword = request.getParameter("truePassword");
+		String id = request.getParameter("id");
+
 
 		if(password == "" && passwordRe == "") {
 			password = truePassword;
@@ -55,7 +57,7 @@ public class UserUpdateServlet extends HttpServlet {
 		if(password.equals(passwordRe)) {
 			UserUpdateDao update = new UserUpdateDao();
 
-			update.update(password,userName,userBirthday,truePassword);
+			update.update(password,userName,userBirthday,id);
 
 			response.sendRedirect("./UserListServlet");
 

@@ -64,9 +64,9 @@ body {
 	<br>
 	<div class="row">
 		<div class="col-9"></div>
-		<form action="UserListServlet" method="post">
+		<form action="TransitionInsertServlet" method="post">
 			<div class="col-3">
-				<button type="submit" class="btn btn-outline-primary" name = "newRegist" value = "newUser">新規登録</button>
+				<button type="submit" class="btn btn-outline-primary"  value = "newUser">新規登録</button>
 			</div>
 		</form>
 	</div>
