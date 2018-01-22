@@ -56,6 +56,7 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("User", user);
 
+
 			response.sendRedirect("./UserListServlet");
 
 //			RequestDispatcher dispatcher = request.getRequestDispatcher("./UserListServlet");

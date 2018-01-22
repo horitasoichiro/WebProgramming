@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Dao.UserUpdateDao;
 
@@ -58,6 +59,10 @@ public class UserUpdateServlet extends HttpServlet {
 			UserUpdateDao update = new UserUpdateDao();
 
 			update.update(password,userName,userBirthday,id);
+
+			HttpSession session = request.getSession();
+			session.setAttribute("Message", "ユーザ情報の更新に成功しました");
+
 
 			response.sendRedirect("./UserListServlet");
 

@@ -10,19 +10,13 @@ import java.util.List;
 import model.User;
 
 public class UserFindDao {
-	public List<User> find(String loginId,String userName,String dateStart,String dateLast) {
+	public List<User> find(String loginId,String userName,String dateStart,String dateLast,String loginUser) {
         Connection conn = null;
         List<User> userList = new ArrayList<User>();
         try {
             // データベースへ接続
 			conn = DBManager.getConnection();
 
-//			if(dateStart == "") {
-//				dateStart = null;
-//			}
-//			if(dateLast == "") {
-//				dateLast = null;
-//        }
 //			//SELECT文を準備
 			List<String> pram = new ArrayList<String>();
 
@@ -30,48 +24,32 @@ public class UserFindDao {
 
 			  sql.append(" SELECT * FROM user WHERE ");
 			  if(loginId != "") {
-//				  sql.append(" login_id = '" + loginId + "' AND ");
 				  sql.append(" login_id = ? AND ");
 				  pram.add(loginId);
 			  }
 			  if(userName != "") {
-//				  sql.append(" name = '" + userName + "' AND ");
 				  userName = "%" + userName + "%";
 				  sql.append(" name LIKE ? AND ");
 				  pram.add(userName);
 			  }
 			  if(dateStart != "") {
-//				  sql.append(" birth_date >= '" + dateStart + "' AND ");
 				  sql.append(" birth_date >= ? AND ");
 				  pram.add(dateStart);
 			  }
 			  if(dateLast != "") {
-//				  sql.append(" birth_date <= '" + dateLast + "' AND ");
 				  sql.append(" birth_date <= ? AND ");
 				  pram.add(dateLast);
 			  }
+			  if(loginUser != "admin")
 			  sql.append(" id <> 1 ");
 			  String buildSql = sql.toString();
 
-
-//			  sql.append("   ");
-//			  sql.append("     hoge");
-//			  sql.append("  ) ");
-//			  sql.append(" values (?) ");
-
-
-
-//			String sql =
-//					"SELECT* FROM user where login_id = ? OR name = ? OR birth_date >= ? OR birth_date <= ? ";
 			PreparedStatement pStmt = conn.prepareStatement(buildSql);
 
 			for(int i = 0; i < pram.size(); i++) {
 				pStmt.setString(i+1, pram.get(i));
 			}
-//			pStmt.setString(1, loginId);
-//			pStmt.setString(2, userName);
-//			pStmt.setString(3, dateStart);
-//			pStmt.setString(4, dateLast);
+
 			String str = pStmt.toString();
 
 			ResultSet rs = pStmt.executeQuery();

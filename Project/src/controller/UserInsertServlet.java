@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Dao.UserInsert;
 
@@ -58,6 +59,10 @@ public class UserInsertServlet extends HttpServlet {
 		}else {
 			UserInsert userInsert = new UserInsert();
 			userInsert.update(loginId, password, name, birthDate);
+
+			HttpSession session = request.getSession();
+			session.setAttribute("Message", "ユーザ情報の登録に成功しました");
+
 
 			response.sendRedirect("./UserListServlet");
 		}

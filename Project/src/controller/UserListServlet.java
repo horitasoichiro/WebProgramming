@@ -54,10 +54,6 @@ public class UserListServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-//		String newUser = request.getParameter("newRegist");
-//		if (newUser.equals("newUser")) {
-//			response.sendRedirect("./UserInsertServlet");
-//		} else {
 
 			request.setCharacterEncoding("UTF-8");
 			String loginId = request.getParameter("loginId");
@@ -65,11 +61,12 @@ public class UserListServlet extends HttpServlet {
 			String dateStart = request.getParameter("dateStart");
 			String dateLast = request.getParameter("dateLast");
 
-			UserFindDao userFindDao = new UserFindDao();
-			List<User> userFindList = userFindDao.find(loginId, userName, dateStart, dateLast);
-
-			// String str = userFindList.get(0).getName();
 			HttpSession session = request.getSession();
+			String loginUser = (String) session.getAttribute("loginUser");
+
+			UserFindDao userFindDao = new UserFindDao();
+			List<User> userFindList = userFindDao.find(loginId, userName, dateStart, dateLast,loginUser);
+
 			session.setAttribute("userList", userFindList);
 
 			String action = request.getParameter("action");
@@ -82,24 +79,15 @@ public class UserListServlet extends HttpServlet {
 
 				session.setAttribute("oneUser", oneUser);
 				String forwardPage = "";
+
 				switch (action) {
 				case "detail":
-					// RequestDispatcher dispatcher =
-					// request.getRequestDispatcher("./UserDetailsServlet");
-					// dispatcher.forward(request, response);
 					forwardPage = "./UserDetailsServlet";
 					break;
 				case "update":
-					// RequestDispatcher dispatcher2 =
-					// request.getRequestDispatcher("./UserUpdateServlet");
-					// dispatcher2.forward(request, response);
 					forwardPage = "./UserUpdateServlet";
-					// forwardPage = "WEB-INF/jsp/userUpdate.jsp";
 					break;
 				case "delete":
-					// RequestDispatcher dispatcher3 =
-					// request.getRequestDispatcher("./UserDeleteServlet");
-					// dispatcher3.forward(request, response);
 					forwardPage = "./UserDeleteServlet";
 					break;
 				default:
@@ -107,13 +95,6 @@ public class UserListServlet extends HttpServlet {
 				}
 				response.sendRedirect(forwardPage);
 			}
-			// request.getRequestDispatcher(forwardPage).forward(request ,response);
-//		}
-		// String url = "WEB-INF/jsp/userList.jsp";
-		//
-		// response.sendRedirect(url);
-		// RequestDispatcher dispatcher =
-		// request.getRequestDispatcher("WEB-INF/jsp/userList.jsp");
-		// dispatcher.forward(request, response);
+
 	}
 }

@@ -40,6 +40,11 @@ body {
 	background: linear-gradient(transparent 0%, #FFFACD 200%);
 	font-family: "ヒラギノ丸ゴ ProN", "Hiragino Maru Gothic ProN"
 }
+
+p {
+	text-align: center;
+	font-size: small;
+}
 </style>
 
 
@@ -62,12 +67,17 @@ body {
 	<br>
 	<h2>ユーザ ー覧</h2>
 	<br>
+
+	<p style="color: green">${Message}</p>
+
 	<div class="row">
 		<div class="col-9"></div>
 		<form action="TransitionInsertServlet" method="post">
 			<div class="col-3">
-				<button type="submit" class="btn btn-outline-primary"  value = "newUser">新規登録</button>
+				<button type="submit" class="btn btn-outline-primary"
+					value="newUser">新規登録</button>
 			</div>
+			<br>
 		</form>
 	</div>
 
@@ -127,22 +137,44 @@ body {
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="item" items="${userList}">
-				<tr>
-					<th scope="row">${item.id}</th>
-					<td>${item.name}</td>
-					<td>${item.birth_date}</td>
-					<td>
-						<form method="post" action="UserListServlet">
-							<button class="btn btn-primary" name='action' value='detail'>詳細</button>
-							<button class="btn btn-success" name='action' value='update'>更新</button>
-							<button class="btn btn-danger" name='action' value='delete'>削除</button>
-							<input type="hidden" name="actionId" value="${item.id}">
-						</form>
+			<c:if test="${User.id == '1' } " var="flg" />
+			<c:if test="${flg}">
+				<c:forEach var="item" items="${userList}">
+					<tr>
+						<th scope="row">${item.id}</th>
+						<td>${item.name}</td>
+						<td>${item.birth_date}</td>
+						<td>
+							<form method="post" action="UserListServlet">
+								<button class="btn btn-primary" name='action' value='detail'>詳細</button>
+								<button class="btn btn-success" name='action' value='update'>更新</button>
+								<button class="btn btn-danger" name='action' value='delete'>削除</button>
+								<input type="hidden" name="actionId" value="${item.id}">
+							</form>
 
-					</td>
-				</tr>
-			</c:forEach>
+						</td>
+					</tr>
+				</c:forEach>
+			</c:if>
+			<c:if test="${!flg} ">
+				<c:forEach var="item" items="${userList}">
+					<tr>
+						<th scope="row">${item.id}</th>
+						<td>${item.name}</td>
+						<td>${item.birth_date}</td>
+						<td>
+							<form method="post" action="UserListServlet">
+								<button class="btn btn-primary" name='action' value='detail'>詳細</button>
+								<c:if test="${item.id} == ${User.id} ">
+									<button class="btn btn-success" name='action' value='update'>更新</button>
+								</c:if>
+								<input type="hidden" name="actionId" value="${item.id}">
+							</form>
+
+						</td>
+					</tr>
+				</c:forEach>
+			</c:if>
 		</tbody>
 	</table>
 
