@@ -48,15 +48,17 @@ body {
 </style>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand">ユーザ名 さん</a>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand">${sessionScope.User.name} さん</a>
 
-		<div class="logoutBtn">
-			<input class="btn btn-outline-success my-2 my-sm-0" type="button"
-				value="ログアウト"
-				onClick="location.href='file:///Users/likeit_student/Documents/git/WebProgramming/Mock/login.html'">
-		</div>
-	</nav>
+
+			<div class="logoutBtn">
+				<input class="btn btn-outline-success my-2 my-sm-0" type="button"
+					value="ログアウト"
+					onClick="location.href='LogoutServlet'">
+			</div>
+		</nav>
+
 	<br>
 	<h2>ユーザ新規登録</h2>
 	<br>

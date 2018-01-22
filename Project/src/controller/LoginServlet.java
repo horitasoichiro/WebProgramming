@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Dao.UserDao;
+import model.CheckRootUser;
 import model.User;
 
 /**
  * Servlet implementation class LoginServlet
  */
 @WebServlet("/LoginServlet")
+
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -55,6 +57,15 @@ public class LoginServlet extends HttpServlet {
 		if(user != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("User", user);
+
+			CheckRootUser checkRoot = new CheckRootUser();
+			boolean root = checkRoot.Check(user.getId());
+
+			if(root == true){
+				session.setAttribute("rootCheck", "root");
+			}else {
+				session.setAttribute("rootCheck", "common");
+			}
 
 
 			response.sendRedirect("./UserListServlet");

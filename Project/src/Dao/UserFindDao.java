@@ -10,7 +10,7 @@ import java.util.List;
 import model.User;
 
 public class UserFindDao {
-	public List<User> find(String loginId,String userName,String dateStart,String dateLast,String loginUser) {
+	public List<User> find(String loginId,String userName,String dateStart,String dateLast,String rootCheck) {
         Connection conn = null;
         List<User> userList = new ArrayList<User>();
         try {
@@ -37,11 +37,13 @@ public class UserFindDao {
 				  pram.add(dateStart);
 			  }
 			  if(dateLast != "") {
-				  sql.append(" birth_date <= ? AND ");
+				  sql.append(" birth_date <= ? ");
 				  pram.add(dateLast);
 			  }
-			  if(loginUser != "admin")
-			  sql.append(" id <> 1 ");
+//			  if(rootCheck != "root") {
+//				  sql.append(" id <> 1 ");
+//			  }
+
 			  String buildSql = sql.toString();
 
 			PreparedStatement pStmt = conn.prepareStatement(buildSql);

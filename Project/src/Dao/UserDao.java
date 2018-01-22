@@ -56,17 +56,26 @@ public class UserDao {
 
 
 	//管理者以外のユーザを一覧で取得する
-	public List<User> findAll() {
+	public List<User> findAll(String rootCheck) {
         Connection conn = null;
         List<User> userList = new ArrayList<User>();
         try {
             // データベースへ接続
             conn = DBManager.getConnection();
             // SELECT文を準備
-            String sql = "SELECT id, login_id, name, birth_date, password, create_date, update_date FROM user  WHERE id <> 1";
+
+			StringBuilder sql = new StringBuilder();
+
+			sql.append("SELECT id, login_id, name, birth_date, password, create_date, update_date FROM user");
+
+			if(rootCheck != "root") {
+				sql.append(" WHERE id <> 1 ");
+			}
+			String buildSql = sql.toString();
+//            String sql = "SELECT id, login_id, name, birth_date, password, create_date, update_date FROM user  WHERE id <> 1";
              // SELECTを実行し、結果表を取得
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+            ResultSet rs = stmt.executeQuery(buildSql);
 
             // 結果表に格納されたレコードの内容を
             // userインスタンスに設定し、ArrayListインスタンスに追加

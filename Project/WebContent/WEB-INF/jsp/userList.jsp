@@ -52,15 +52,20 @@ p {
 <body>
 
 
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand">${sessionScope.User.name} さん</a>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand">${sessionScope.User.name} さん</a>
+<br>
+${User.id}
+<br>
 
-		<div class="logoutBtn">
-			<input class="btn btn-outline-success my-2 my-sm-0" type="button"
-				value="ログアウト"
-				onClick="location.href='file:///Users/likeit_student/Documents/git/WebProgramming/Mock/login.html'">
-		</div>
-	</nav>
+
+
+			<div class="logoutBtn">
+				<input class="btn btn-outline-success my-2 my-sm-0" type="button"
+					value="ログアウト"
+					onClick="location.href='LogoutServlet'">
+			</div>
+		</nav>
 
 
 
@@ -123,60 +128,77 @@ p {
 		</div>
 	</form>
 	<hr>
-
-
+	<p style="color: green">${Message}</p>
 	<hr>
 
-	<table class="table table-bordered">
-		<thead class="thead-light">
-			<tr>
-				<th scope="col">ログインID</th>
-				<th scope="col">ユーザ名</th>
-				<th scope="col">生年月日</th>
-				<th scope="col"></th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:if test="${User.id == '1' } " var="flg" />
-			<c:if test="${flg}">
-				<c:forEach var="item" items="${userList}">
-					<tr>
-						<th scope="row">${item.id}</th>
-						<td>${item.name}</td>
-						<td>${item.birth_date}</td>
-						<td>
-							<form method="post" action="UserListServlet">
-								<button class="btn btn-primary" name='action' value='detail'>詳細</button>
+
+	<!-- 以下管理者用Table -->
+	<c:if test="${rootCheck.equals('root')}">
+
+		<table class="table table-bordered">
+			<thead class="thead-light">
+				<tr>
+					<th scope="col">ログインID</th>
+					<th scope="col">ユーザ名</th>
+					<th scope="col">生年月日</th>
+					<th scope="col"></th>
+				</tr>
+			</thead>
+
+			<c:forEach var="item" items="${userList}">
+				<tr>
+					<th scope="row">${item.id}</th>
+					<td>${item.name}</td>
+					<td>${item.birth_date}</td>
+					<td>
+						<form method="post" action="UserListServlet">
+							<button class="btn btn-primary" name='action' value='detail'>詳細</button>
+							<button class="btn btn-success" name='action' value='update'>更新</button>
+							<button class="btn btn-danger" name='action' value='delete'>削除</button>
+							<input type="hidden" name="actionId" value="${item.id}">
+						</form>
+
+					</td>
+				</tr>
+			</c:forEach>
+			</tbody>
+		</table>
+	</c:if>
+
+	<!-- 以下一般ユーザ用Table -->
+	<c:if test="${!rootCheck.equals('root')}">
+
+		<table class="table table-bordered">
+			<thead class="thead-light">
+				<tr>
+					<th scope="col">ログインID</th>
+					<th scope="col">ユーザ名</th>
+					<th scope="col">生年月日</th>
+					<th scope="col"></th>
+				</tr>
+			</thead>
+
+			<c:forEach var="item" items="${userList}">
+				<tr>
+					<th scope="row">${item.id}</th>
+					<td>${item.name}</td>
+					<td>${item.birth_date}</td>
+					<td>
+
+							<button class="btn btn-primary" name='action' value='detail'>詳細</button>
+
+							<c:choose>
+							<c:when test="${item.id == sessionScope.User.id}">
 								<button class="btn btn-success" name='action' value='update'>更新</button>
-								<button class="btn btn-danger" name='action' value='delete'>削除</button>
-								<input type="hidden" name="actionId" value="${item.id}">
-							</form>
+							</c:when>
+							</c:choose>
+					</td>
+				</tr>
+			</c:forEach>
+			</tbody>
+		</table>
+	</c:if>
 
-						</td>
-					</tr>
-				</c:forEach>
-			</c:if>
-			<c:if test="${!flg} ">
-				<c:forEach var="item" items="${userList}">
-					<tr>
-						<th scope="row">${item.id}</th>
-						<td>${item.name}</td>
-						<td>${item.birth_date}</td>
-						<td>
-							<form method="post" action="UserListServlet">
-								<button class="btn btn-primary" name='action' value='detail'>詳細</button>
-								<c:if test="${item.id} == ${User.id} ">
-									<button class="btn btn-success" name='action' value='update'>更新</button>
-								</c:if>
-								<input type="hidden" name="actionId" value="${item.id}">
-							</form>
-
-						</td>
-					</tr>
-				</c:forEach>
-			</c:if>
-		</tbody>
-	</table>
 
 
 

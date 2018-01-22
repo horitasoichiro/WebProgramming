@@ -38,8 +38,11 @@ public class UserListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		HttpSession session = request.getSession();
+		String rootCheck = (String) session.getAttribute("rootCheck");
+
 		UserDao userDao = new UserDao();
-		List<User> userList = userDao.findAll();
+		List<User> userList = userDao.findAll(rootCheck);
 
 		request.setAttribute("userList", userList);
 
@@ -62,10 +65,10 @@ public class UserListServlet extends HttpServlet {
 			String dateLast = request.getParameter("dateLast");
 
 			HttpSession session = request.getSession();
-			String loginUser = (String) session.getAttribute("loginUser");
+			String rootCheck = (String) session.getAttribute("rootCheck");
 
 			UserFindDao userFindDao = new UserFindDao();
-			List<User> userFindList = userFindDao.find(loginId, userName, dateStart, dateLast,loginUser);
+			List<User> userFindList = userFindDao.find(loginId, userName, dateStart, dateLast,rootCheck);
 
 			session.setAttribute("userList", userFindList);
 
