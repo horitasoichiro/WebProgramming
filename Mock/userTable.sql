@@ -31,6 +31,6 @@ UPDATE user SET password = '5F4DCC3B5AA765D61D8327DEB882CF99' WHERE id = '1'
 
 SELECT * FROM user WHERE  name LIKE '%田%' AND
 
-INSERT INTO user VALUES (
+INSERT INTO t_user ( id,name, address, login_id, login_password, create_date )VALUES (
   1,'管理者','tokyo','admin','password',now()
 );
