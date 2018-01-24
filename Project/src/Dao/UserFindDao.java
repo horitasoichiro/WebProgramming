@@ -19,30 +19,27 @@ public class UserFindDao {
 
 //			//SELECT文を準備
 			List<String> pram = new ArrayList<String>();
-
 			StringBuilder sql = new StringBuilder();
 
-			  sql.append(" SELECT * FROM user WHERE ");
+			  sql.append(" SELECT * FROM user WHERE 1 = 1 ");
 			  if(loginId != "") {
-				  sql.append(" login_id = ? AND ");
+				  sql.append(" AND login_id = ? ");
 				  pram.add(loginId);
 			  }
 			  if(userName != "") {
 				  userName = "%" + userName + "%";
-				  sql.append(" name LIKE ? AND ");
+				  sql.append(" AND  name LIKE ? ");
 				  pram.add(userName);
 			  }
 			  if(dateStart != "") {
-				  sql.append(" birth_date >= ? AND ");
+				  sql.append(" AND birth_date >= ? ");
 				  pram.add(dateStart);
 			  }
 			  if(dateLast != "") {
-				  sql.append(" birth_date <= ? ");
+				  sql.append(" AND birth_date <= ? ");
 				  pram.add(dateLast);
 			  }
-//			  if(rootCheck != "root") {
-//				  sql.append(" id <> 1 ");
-//			  }
+			  sql.append(" AND id <> 1 ");
 
 			  String buildSql = sql.toString();
 

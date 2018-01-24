@@ -45,6 +45,10 @@ body {
 	background: linear-gradient(transparent 0%, #FFFACD 200%);
 	font-family: "ヒラギノ丸ゴ ProN", "Hiragino Maru Gothic ProN"
 }
+p {
+	text-align: center;
+
+}
 </style>
 </head>
 <body>
@@ -62,6 +66,7 @@ body {
 	<br>
 	<h2>ユーザ新規登録</h2>
 	<br>
+	<p style="color: red">${message}</p>
 
 	<div class=container>
 		<form action="UserInsertServlet" method="post">
@@ -69,7 +74,7 @@ body {
 				<label for="inputLoginID" class="col-sm-2 col-form-label offset-2">ログインID</label>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" id="inputID" name = "loginId"
-						placeholder="ログインID">
+						value="${newUser.loginID}" placeholder="ログインID">
 				</div>
 			</div>
 			<div class="form-group row">
@@ -91,16 +96,15 @@ body {
 				<label for="inputUserName" class="col-sm-2 col-form-label offset-2">ユーザ名</label>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" id="inputUserName" name = "name"
-						placeholder="ユーザ名">
+						 placeholder="ユーザ名" value="${newUser.name}">
 				</div>
 			</div>
 			<div class="form-group row">
 				<label for="date" class="col-sm-2 col-form-label offset-2">生年月日</label>
 				<div class="col-sm-6">
 					<input type="date" class="form-control" id="inputdate" name = "birthDate"
-						placeholder="年/月/日">
+						placeholder="年/月/日" value="${newUser.birth_date}">
 					<div class="col-sm-10">
-						<!-- <p class=coment> ※スラッシュで区切って入力 </p> -->
 						<br>
 					</div>
 				</div>

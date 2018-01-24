@@ -4,10 +4,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import model.PassDigest;
+
 public class UserInsert {
 	public void update(String loginId, String password,String name,String birthDate) {
 		Connection conn = null;
 		try {
+
+//			password暗号化
+			PassDigest pass = new PassDigest();
+			String passMd5 = pass.build(password);
+
 			// データベースへ接続
 			conn = DBManager.getConnection();
 
@@ -24,26 +31,11 @@ public class UserInsert {
 			pStmt.setString(1, loginId);
 			pStmt.setString(2, name);
 			pStmt.setString(3, birthDate);
-			pStmt.setString(4, password);
+			pStmt.setString(4, passMd5);
 			// ResultSet rs =
 			String buildSql = pStmt.toString();
 			pStmt.executeUpdate();
 
-			// 結果表に格納されたレコードの内容を
-			// userインスタンスに設定し、ArrayListインスタンスに追加
-			// while (rs.next()) {
-			// String id = rs.getString("id");
-			// String loginID = rs.getString("login_id");
-			// String name = rs.getString("name");
-			// String birth_date = rs.getString("birth_date");
-			// String password2 = rs.getString("password");
-			// String create_date = rs.getString("create_date");
-			// String update_date = rs.getString("update_date");
-			//
-			// User user = new User(loginID,
-			// password2,name,id,birth_date,create_date,update_date);
-			// userList.add(user);
-			// }
 		} catch (SQLException e) {
 			e.printStackTrace();
 			e = null;

@@ -51,25 +51,31 @@ hr {
 body {
 	font-family: "ヒラギノ丸ゴ ProN", "Hiragino Maru Gothic ProN"
 }
+
+p {
+	text-align: center;
+	font-size: small;
+}
 </style>
 
 <title>ユーザ情報更新</title>
 </head>
 <body>
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand">${sessionScope.User.name} さん</a>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand">${sessionScope.User.name} さん</a>
 
-			<div class="logoutBtn">
-				<input class="btn btn-outline-success my-2 my-sm-0" type="button"
-					value="ログアウト"
-					onClick="location.href='LogoutServlet'">
-			</div>
-		</nav>
+		<div class="logoutBtn">
+			<input class="btn btn-outline-success my-2 my-sm-0" type="button"
+				value="ログアウト" onClick="location.href='LogoutServlet'">
+		</div>
+	</nav>
 
 	<br>
 	<br>
 	<div class=container>
 		<h2>ユーザ情報更新</h2>
+		<br>
+		<p style="color: red">${message}</p>
 		<form action="UserUpdateServlet" method="post">
 			<table class="table table-hover">
 				<thead>
@@ -88,13 +94,13 @@ body {
 						<th scope="row">パスワード</th>
 						<!-- 入力欄 -->
 
-						<td><input type="text" class="form-control" id="password"
+						<td><input type="password" class="form-control" id="password"
 							name="password" placeholder="パスワード"></td>
 					</tr>
 
 					<tr>
 						<th scope="row">パスワード(確認)</th>
-						<td><input type="text" class="form-control" id="passwordRe"
+						<td><input type="password" class="form-control" id="passwordRe"
 							name="passwordRe" placeholder="パスワード(確認)"></td>
 					</tr>
 					<tr>

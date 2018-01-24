@@ -8,9 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import Dao.UserDelete;
+import Dao.UserFindIdDao;
+import model.User;
 
 /**
  * Servlet implementation class UserDeleteServlet
@@ -31,6 +32,12 @@ public class UserDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String id = request.getParameter("id");
+		UserFindIdDao userFindidDao = new UserFindIdDao();
+		User oneUser = new User();
+		oneUser = userFindidDao.findByOneId(id);
+		request.setAttribute("oneUser", oneUser);
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/userDelete.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -44,10 +51,7 @@ public class UserDeleteServlet extends HttpServlet {
 		UserDelete userDelete = new UserDelete();
 		userDelete.delete(id);
 
-		HttpSession session = request.getSession();
-		session.setAttribute("Message", "ユーザ情報の削除に成功しました");
-
-		response.sendRedirect("./UserListServlet");
+		response.sendRedirect("./UserListServlet?message=deleteOk");
 	}
 
 }

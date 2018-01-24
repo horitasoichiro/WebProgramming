@@ -33,8 +33,20 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String message = request.getParameter("message");
+		if (message != null) {
+			switch (message) {
+			case "loginError":
+				request.setAttribute("message", "※ユーザ名またはパスワードが違います");
+				break;
+			case "logout":
+				request.setAttribute("message2", "ログアウトしました");
+				break;
 
-		request.removeAttribute("errorMessage");
+			default:
+			}
+		}
+
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
 		dispatcher.forward(request, response);
@@ -70,14 +82,9 @@ public class LoginServlet extends HttpServlet {
 
 			response.sendRedirect("./UserListServlet");
 
-//			RequestDispatcher dispatcher = request.getRequestDispatcher("./UserListServlet");
-//			dispatcher.forward(request, response);
 		}else {
 
-			request.setAttribute("errorMessage",
-                    "※ユーザ名またはパスワードが違います");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
-			dispatcher.forward(request, response);
+			response.sendRedirect("./LoginServlet?message=loginError");
 		}
 
 	}

@@ -13,7 +13,7 @@ CREATE TABLE user(
 );
 
 INSERT INTO user VALUES (
-  1,'admin','管理者','1985/11/06/','password',now(),now()
+  1,'admin','管理者','1985/11/06/','5F4DCC3B5AA765D61D8327DEB882CF99',now(),now()
 );
 
 -- test
@@ -26,3 +26,11 @@ SELECT* FROM user where login_id = 'taro' OR password = null OR birth_date >= ''
 SELECT* FROM user where login_id = 'taro' OR password = '' OR birth_date >= null OR birth_date <= null;
 
 SELECT* FROM user where login_id = 'taro' and password = null and birth_date >= '' and birth_date <= null and id <> 1;
+
+UPDATE user SET password = '5F4DCC3B5AA765D61D8327DEB882CF99' WHERE id = '1'
+
+SELECT * FROM user WHERE  name LIKE '%田%' AND
+
+INSERT INTO user VALUES (
+  1,'管理者','tokyo','admin','password',now()
+);

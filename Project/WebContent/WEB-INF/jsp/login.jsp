@@ -50,13 +50,8 @@ body {
 		<form action="LoginServlet" method="post">
 			<h3>ログイン画面</h3>
 			<br>
-			<p style="color: red">${errorMessage}</p>
-
-
-
-
-
-
+			<p style="color: red">${message}</p>
+			<p style="color: green">${message2}</p>
 
 			<div class="row">
 				<div class="col align-self-center">

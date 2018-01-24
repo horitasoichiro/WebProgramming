@@ -61,7 +61,7 @@ body {
 		<br>
 		<div class="row justify-content-center">
 			<div class="col-6-start">
-				<p>ログインID : ${oneUser.id}</p>
+				<p>ログインID : ${oneUser.loginID}</p>
 				<p>を本当に削除してよろしいですか？</p>
 			</div>
 
@@ -76,10 +76,10 @@ body {
 
 			<form action="UserDeleteServlet" method="post">
 				<div class="col-4-center">
-					<input class="btn btn-danger " type="submit" value="削除"> <input
-						type=hidden name=deleteId value="${oneUser.id}">
+					<input class="btn btn-danger " type="submit" value=" &nbsp;&emsp;削除&emsp;&nbsp; ">
+					<input type=hidden name=deleteId value="${oneUser.id}">
 				</div>
-				>
+
 			</form>
 		</div>
 	</div>

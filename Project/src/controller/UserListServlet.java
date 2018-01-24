@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import Dao.UserDao;
 import Dao.UserFindDao;
-import Dao.UserFindIdDao;
 import model.User;
 
 /**
@@ -37,12 +36,25 @@ public class UserListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		HttpSession session = request.getSession();
-		String rootCheck = (String) session.getAttribute("rootCheck");
+		// メッセージ表示
+		String message = request.getParameter("message");
+		if (message != null) {
+			switch (message) {
+			case "updateOk":
+				request.setAttribute("message", "ユーザ情報の更新に成功しました");
+				break;
+			case "deleteOk":
+				request.setAttribute("message", "ユーザ情報の削除に成功しました");
+				break;
+			case "insertOk":
+				request.setAttribute("message", "ユーザ情報の登録に成功しました");
+				break;
+			default:
+			}
+		}
 
 		UserDao userDao = new UserDao();
-		List<User> userList = userDao.findAll(rootCheck);
+		List<User> userList = userDao.findAll();
 
 		request.setAttribute("userList", userList);
 
@@ -51,53 +63,29 @@ public class UserListServlet extends HttpServlet {
 	}
 
 	/**
+	 * 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		request.setCharacterEncoding("UTF-8");
+		String loginId = request.getParameter("loginId");
+		String userName = request.getParameter("userName");
+		String dateStart = request.getParameter("dateStart");
+		String dateLast = request.getParameter("dateLast");
 
-			request.setCharacterEncoding("UTF-8");
-			String loginId = request.getParameter("loginId");
-			String userName = request.getParameter("userName");
-			String dateStart = request.getParameter("dateStart");
-			String dateLast = request.getParameter("dateLast");
+		HttpSession session = request.getSession();
+		String rootCheck = (String) session.getAttribute("rootCheck");
 
-			HttpSession session = request.getSession();
-			String rootCheck = (String) session.getAttribute("rootCheck");
+		UserFindDao userFindDao = new UserFindDao();
+		List<User> userFindList = userFindDao.find(loginId, userName, dateStart, dateLast, rootCheck);
 
-			UserFindDao userFindDao = new UserFindDao();
-			List<User> userFindList = userFindDao.find(loginId, userName, dateStart, dateLast,rootCheck);
+		session.setAttribute("userList", userFindList);
 
-			session.setAttribute("userList", userFindList);
-
-			String action = request.getParameter("action");
-			String actionId = request.getParameter("actionId");
-
-			if (action != null) {
-				UserFindIdDao userFindidDao = new UserFindIdDao();
-				User oneUser = new User();
-				oneUser = userFindidDao.findByOneId(actionId);
-
-				session.setAttribute("oneUser", oneUser);
-				String forwardPage = "";
-
-				switch (action) {
-				case "detail":
-					forwardPage = "./UserDetailsServlet";
-					break;
-				case "update":
-					forwardPage = "./UserUpdateServlet";
-					break;
-				case "delete":
-					forwardPage = "./UserDeleteServlet";
-					break;
-				default:
-					break;
-				}
-				response.sendRedirect(forwardPage);
-			}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/userList.jsp");
+		dispatcher.forward(request, response);
 
 	}
 }

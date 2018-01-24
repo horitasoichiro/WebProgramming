@@ -52,20 +52,14 @@ p {
 <body>
 
 
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand">${sessionScope.User.name} さん</a>
-<br>
-${User.id}
-<br>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand">${sessionScope.User.name} さん</a>
 
-
-
-			<div class="logoutBtn">
-				<input class="btn btn-outline-success my-2 my-sm-0" type="button"
-					value="ログアウト"
-					onClick="location.href='LogoutServlet'">
-			</div>
-		</nav>
+		<div class="logoutBtn">
+			<input class="btn btn-outline-success my-2 my-sm-0" type="button"
+				value="ログアウト" onClick="location.href='LogoutServlet'">
+		</div>
+	</nav>
 
 
 
@@ -73,18 +67,17 @@ ${User.id}
 	<h2>ユーザ ー覧</h2>
 	<br>
 
-	<p style="color: green">${Message}</p>
+	<p style="color: green">${message}</p>
 
 	<div class="row">
 		<div class="col-9"></div>
-		<form action="TransitionInsertServlet" method="post">
-			<div class="col-3">
-				<button type="submit" class="btn btn-outline-primary"
-					value="newUser">新規登録</button>
-			</div>
-			<br>
-		</form>
+		<div class="col-3">
+			<a class="btn btn-outline-primary" href="./UserInsertServlet"
+				role="button">新規登録</a>
+		</div>
+
 	</div>
+	<br>
 
 	<form action="UserListServlet" method="post">
 		<div class="container">
@@ -128,79 +121,34 @@ ${User.id}
 		</div>
 	</form>
 	<hr>
-	<p style="color: green">${Message}</p>
-	<hr>
-
-
-	<!-- 以下管理者用Table -->
-	<c:if test="${rootCheck.equals('root')}">
-
-		<table class="table table-bordered">
-			<thead class="thead-light">
-				<tr>
-					<th scope="col">ログインID</th>
-					<th scope="col">ユーザ名</th>
-					<th scope="col">生年月日</th>
-					<th scope="col"></th>
-				</tr>
-			</thead>
-
-			<c:forEach var="item" items="${userList}">
-				<tr>
-					<th scope="row">${item.id}</th>
-					<td>${item.name}</td>
-					<td>${item.birth_date}</td>
-					<td>
-						<form method="post" action="UserListServlet">
-							<button class="btn btn-primary" name='action' value='detail'>詳細</button>
-							<button class="btn btn-success" name='action' value='update'>更新</button>
-							<button class="btn btn-danger" name='action' value='delete'>削除</button>
-							<input type="hidden" name="actionId" value="${item.id}">
-						</form>
-
-					</td>
-				</tr>
-			</c:forEach>
-			</tbody>
-		</table>
-	</c:if>
-
-	<!-- 以下一般ユーザ用Table -->
-	<c:if test="${!rootCheck.equals('root')}">
-
-		<table class="table table-bordered">
-			<thead class="thead-light">
-				<tr>
-					<th scope="col">ログインID</th>
-					<th scope="col">ユーザ名</th>
-					<th scope="col">生年月日</th>
-					<th scope="col"></th>
-				</tr>
-			</thead>
-
-			<c:forEach var="item" items="${userList}">
-				<tr>
-					<th scope="row">${item.id}</th>
-					<td>${item.name}</td>
-					<td>${item.birth_date}</td>
-					<td>
-
-							<button class="btn btn-primary" name='action' value='detail'>詳細</button>
-
-							<c:choose>
-							<c:when test="${item.id == sessionScope.User.id}">
-								<button class="btn btn-success" name='action' value='update'>更新</button>
-							</c:when>
-							</c:choose>
-					</td>
-				</tr>
-			</c:forEach>
-			</tbody>
-		</table>
-	</c:if>
-
-
-
-
+	<table class="table table-bordered">
+		<thead class="thead-light">
+			<tr>
+				<th scope="col">ログインID</th>
+				<th scope="col">ユーザ名</th>
+				<th scope="col">生年月日</th>
+				<th scope="col"></th>
+			</tr>
+		</thead>
+		<c:forEach var="item" items="${userList}">
+			<tr>
+				<th scope="row">${item.loginID}</th>
+				<td>${item.name}</td>
+				<td>${item.birth_date}</td>
+				<td><a class="btn btn-primary"
+					href="./UserDetailsServlet?id=${item.id}" role="button">詳細</a> <c:choose>
+						<c:when
+							test="${item.id == sessionScope.User.id || rootCheck.equals('root')}">
+							<a class="btn btn-success"
+								href="./UserUpdateServlet?id=${item.id}" role="button">更新</a>
+						</c:when>
+					</c:choose> <c:if test="${rootCheck.equals('root')}">
+						<a class="btn btn-danger" href="./UserDeleteServlet?id=${item.id}"
+							role="button">削除</a>
+					</c:if></td>
+			</tr>
+		</c:forEach>
+		</tbody>
+	</table>
 </body>
 </html>

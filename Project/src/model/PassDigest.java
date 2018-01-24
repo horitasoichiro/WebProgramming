@@ -8,7 +8,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.xml.bind.DatatypeConverter;
 
 public class PassDigest {
-	public static String build(String pass)  {
+	public String build(String pass)  {
 
 
 	//ハッシュを生成したい元の文字列
@@ -31,12 +31,6 @@ public class PassDigest {
 	System.out.println(result);
 	return result;
 	}
-	
-//	public static void main(String[]args) {
-//		build("アイウエオ");
-//		
-//	}
-	
 }
 
 

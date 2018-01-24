@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,8 +33,7 @@ public class LogoutServlet extends HttpServlet {
 		session.invalidate();
 
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
-		dispatcher.forward(request, response);
+		response.sendRedirect("./LoginServlet?message=logout");
 	}
 
 	/**
